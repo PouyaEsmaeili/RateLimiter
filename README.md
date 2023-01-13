@@ -9,6 +9,10 @@ In this repository, the Leaky Bucket is implemented based on Redis cache engine.
 Read more about leaky bucket from [here](https://en.wikipedia.org/wiki/Leaky_bucket).
 
 
+For more details about this implementation read my blog post [here](https://medium.com/@pouya.esmaeili.g/rate-limiter-with-redis-ac6913932bf5).
+
 ### TODO list:
 
 - Implementation of async version
+- Implementation of other methods of rate limiting
+- 

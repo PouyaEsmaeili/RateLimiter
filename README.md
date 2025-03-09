@@ -11,8 +11,15 @@ Read more about leaky bucket from [here](https://en.wikipedia.org/wiki/Leaky_buc
 
 For more details about this implementation read my blog post [here](https://medium.com/@pouya.esmaeili.g/rate-limiter-with-redis-ac6913932bf5).
 
+# Activate Env
+
+```commandline
+uv sync
+```
+
+-> [UV installation guide](https://docs.astral.sh/uv/getting-started/installation/)
+
 ### TODO list:
 
 - Implementation of async version
 - Implementation of other methods of rate limiting
-- 

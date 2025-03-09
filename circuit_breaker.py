@@ -5,8 +5,9 @@ from .rate_limiter import RateLimiter
 
 
 class CircuitBreaker:
-
-    def __init__(self, resource_id: str, number_of_requests: int, time_bound: timedelta):
+    def __init__(
+        self, resource_id: str, number_of_requests: int, time_bound: timedelta
+    ):
         self._resource_id = resource_id
         conn_pool = ConnectionPool(
             host=os.getenv("REDIS_HOST", "localhost"),

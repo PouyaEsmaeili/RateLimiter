@@ -11,6 +11,9 @@ dependencies = [
 
 [tool.ruff]
 line-length = 88  # Recommended length for readability
+preview = true  # Enable preview mode to apply W391
+
+[tool.ruff.lint]
 select = [
     "E101",  # IndentationError (wrong indentation level)
     "E701",  # Multiple statements on one line (use semicolons properly)

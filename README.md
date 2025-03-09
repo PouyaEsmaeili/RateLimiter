@@ -1,4 +1,4 @@
-# Implementation of Rate Limiter with Redis
+# LeakyBucket RateLimiter using Redis
 
 A Rate Limiter controls and restricts the rate at which requests can access an object or resource. 
 This limit is typically measured in units such as Requests Per Second (RPS) or Requests Per Minute (RPM). 

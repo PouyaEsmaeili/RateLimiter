@@ -7,4 +7,27 @@ requires-python = ">=3.11"
 dependencies = [
     "ruff>=0.9.10",
     "redis>=5.2.1",
+    "pytest>=8.3.5",
+]
+
+[tool.ruff]
+line-length = 88  # Recommended length for readability
+preview = true  # Enable preview mode to apply W391
+
+[tool.ruff.lint]
+select = [
+    "E101",  # IndentationError (wrong indentation level)
+    "E701",  # Multiple statements on one line (use semicolons properly)
+    "E702",  # Multiple statements on one line (semicolon without appropriate spacing)
+    "E703",  # Statement ending with a semicolon
+    "E711",  # Comparison to None (use 'is' or 'is not' instead of '==')
+    "E712",  # Comparison to True/False (use 'is' instead of '==')
+    "W191",  # Indentation contains tabs (should use spaces)
+    "W291",  # Trailing whitespace
+    "W293",  # Blank line contains whitespace
+    "W391",  # Blank line at the end of file
+    "F401",  # Unused import
+    "F403",  # Import * used
+    "F821",  # Undefined name
+    "C901",  # Function is too complex (too many branches or statements)
 ]

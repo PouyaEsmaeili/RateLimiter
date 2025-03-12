@@ -16,7 +16,7 @@ class CircuitBreaker:
         )
         redis_client = StrictRedis(connection_pool=conn_pool)
         self._rate_limiter = RateLimiter(
-            con_pool=redis_client,
+            redis_client=redis_client,
             number_of_requests=number_of_requests,
             time_bound=time_bound,
         )

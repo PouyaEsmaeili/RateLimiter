@@ -13,7 +13,7 @@ class RateLimiter(object):
     and global rate limiting (when client_id is not provided) for resources.
 
     Attributes:
-        con_pool (StrictRedis): The Redis connection pool used for Redis operations.
+        redis_client (StrictRedis): The Redis connection pool used for Redis operations.
         number_of_requests (int): The maximum number of allowed requests within the time_bound period.
         time_bound (timedelta): The time window within which the requests are counted.
         lock_timeout (float): Timeout in seconds for acquiring a lock to prevent race conditions.
@@ -46,13 +46,13 @@ class RateLimiter(object):
 
     def __init__(
         self,
-        con_pool: StrictRedis,
+        redis_client: StrictRedis,
         number_of_requests: int,
         time_bound: timedelta,
         lock_timeout: float = 0.1,
         log_value: str = "",
     ):
-        self._con_pool = con_pool
+        self._redis_client = redis_client
         self._number_of_requests = number_of_requests
         self._time_bound = time_bound
         self._lock_timeout = lock_timeout
@@ -81,10 +81,10 @@ class RateLimiter(object):
 
     def log(self, resource_id: str, client_id: str | None = None) -> bool:
         lock_name = self._get_lock_name(client_id, resource_id)
-        with self._con_pool.lock(name=lock_name, timeout=self._lock_timeout):
+        with self._redis_client.lock(name=lock_name, timeout=self._lock_timeout):
             if self.is_allowed(client_id, resource_id):
                 log_name = self._generate_log_name(client_id, resource_id)
-                self._con_pool.setex(
+                self._redis_client.setex(
                     name=log_name, time=self._time_bound, value=self._log_value
                 )
                 return True
@@ -96,8 +96,8 @@ class RateLimiter(object):
 
     def count_logs(self, resource_id: str, client_id: str | None = None) -> int:
         log_pattern = self._get_log_pattern(client_id, resource_id)
-        return len(self._con_pool.keys(log_pattern))
+        return len(self._redis_client.keys(log_pattern))
 
     def flush_logs(self, resource_id: str, client_id: str | None = None) -> None:
         log_pattern = self._get_log_pattern(client_id, resource_id)
-        self._con_pool.delete(log_pattern)
+        self._redis_client.delete(log_pattern)

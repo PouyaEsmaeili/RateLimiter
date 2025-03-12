@@ -11,10 +11,16 @@ In this repository, the Leaky Bucket algorithm is implemented using the Redis ca
 * For more details about this implementation read my blog post [here](https://medium.com/@pouya.esmaeili.g/rate-limiter-with-redis-ac6913932bf5).
 
 
-# Circuit Breaker:
+## Circuit Breaker:
 
 As an example, a simple Circuit Breaker has been implemented using the Leaky Bucket Rate Limiter. 
 To understand how a Circuit Breaker works, read Martin Fowler's article [here](https://martinfowler.com/bliki/CircuitBreaker.html).
+
+## Examples:
+
+There are two examples: one demonstrates how to use a rate limiter to restrict the number of password recovery attempts for an email, 
+and the other shows how to implement a circuit breaker in an alarming system to prevent notification flooding.
+Check `examples.py`.
 
 ## Activate Env
 

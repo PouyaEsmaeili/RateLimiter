@@ -1,20 +1,16 @@
-import os
 from datetime import timedelta
-from redis import StrictRedis, ConnectionPool
-from .rate_limiter import RateLimiter
+from rate_limiter import RateLimiter
 
 
 class CircuitBreaker:
     def __init__(
-        self, resource_id: str, number_of_requests: int, time_bound: timedelta
+        self,
+        redis_client,
+        resource_id: str,
+        number_of_requests: int,
+        time_bound: timedelta,
     ):
         self._resource_id = resource_id
-        conn_pool = ConnectionPool(
-            host=os.getenv("REDIS_HOST", "localhost"),
-            port=int(os.getenv("REDIS_PORT", "6379")),
-            db=0,
-        )
-        redis_client = StrictRedis(connection_pool=conn_pool)
         self._rate_limiter = RateLimiter(
             redis_client=redis_client,
             number_of_requests=number_of_requests,

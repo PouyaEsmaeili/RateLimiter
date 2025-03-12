@@ -7,7 +7,6 @@ NUMBER_OF_REQUESTS = 5
 
 
 class FakeRedis:
-
     def __init__(self):
         self._repo = list()
         self._limit = NUMBER_OF_REQUESTS
